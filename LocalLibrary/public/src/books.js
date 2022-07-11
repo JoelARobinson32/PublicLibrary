@@ -34,12 +34,7 @@ function getBorrowersForBook(book, accounts) {
         }
     }
 
-    for (let i = 0; i < result.length; i++) {
-        if (i >= 10) {
-            result.pop();
-        }
-    }
-    return result;
+    return limitEntries(result, 10);
 }
 
 function findById(objects, id) {
@@ -52,10 +47,18 @@ function findById(objects, id) {
     return null;
 }
 
+function limitEntries(array, limit) {
+    while (array.length > limit) {
+        array.pop();
+    }
+    return array;
+}
+
 module.exports = {
   findAuthorById,
   findBookById,
   partitionBooksByBorrowedStatus,
   getBorrowersForBook,
   findById,
+  limitEntries,
 };
