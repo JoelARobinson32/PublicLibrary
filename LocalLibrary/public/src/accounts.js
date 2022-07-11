@@ -1,7 +1,7 @@
 function findAccountById(accounts, id) {
     for (let name in accounts) {
         const person = accounts[name];
-        if (person.id == id) {
+        if (person.id === id) {
             return person;
         }
     }
