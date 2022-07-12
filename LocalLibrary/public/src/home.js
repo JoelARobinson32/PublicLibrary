@@ -7,13 +7,16 @@ function getTotalAccountsCount(accounts) {
 }
 
 function getBooksBorrowedCount(books) {
-    let count = 0;
-    for (let entry in books) {
-        const book = books[entry];
-        if (!book.borrows[0].returned) {
-            count++;
-        }
+    let filteredBooks = books.filter((book) => !book.borrows[0].returned);
+
+    //The next three lines are unneccessary, but I couldn't find a place to easily add the reduce() method.
+    let countArray = [];
+    for (let i = 0; i < filteredBooks.length; i++) {
+        countArray.push(1);
     }
+    let count = countArray.reduce((total, entry) => total + entry);
+    //For better code, delete above and return filteredBooks.length
+
     return count;
 }
 
@@ -43,9 +46,10 @@ function getMostCommonGenres(books) {
 
 function getMostPopularBooks(books) {
     let result = [];
+    let names = books.map((book) => book.title);
     for (let i = 0; i < books.length; i++) {
         let temp = {
-            "name": books[i].title,
+            "name": names[i],
             "count": books[i].borrows.length
         };
         result.push(temp);
